@@ -1,85 +1,67 @@
 
-import React, { useState, useEffect } from "react";
-import { ArrowUp } from "lucide-react";
-
-const examples = [
-  "I want to run a marathon",
-  "I want to start a business", 
-  "I want to learn piano",
-  "I want to get in shape",
-  "I want to learn Spanish"
-];
+import React, { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import { GoalCustomizationForm } from "./GoalCustomizationForm";
 
 export function HeroInput() {
-  const [value, setValue] = useState("");
-  const [currentExampleIndex, setCurrentExampleIndex] = useState(0);
-  const [displayedText, setDisplayedText] = useState("");
-  const [phase, setPhase] = useState<'typing' | 'waiting' | 'deleting'>('typing');
+  const [goal, setGoal] = useState("");
+  const [showForm, setShowForm] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const currentExample = examples[currentExampleIndex];
-
-  useEffect(() => {
-    if (value) return; // Don't show animation if user is typing
-
-    let timeout: NodeJS.Timeout;
-
-    switch (phase) {
-      case 'typing':
-        if (displayedText.length < currentExample.length) {
-          timeout = setTimeout(() => {
-            setDisplayedText(currentExample.slice(0, displayedText.length + 1));
-          }, 80);
-        } else {
-          timeout = setTimeout(() => setPhase('waiting'), 1000);
-        }
-        break;
-
-      case 'waiting':
-        timeout = setTimeout(() => setPhase('deleting'), 2000);
-        break;
-
-      case 'deleting':
-        if (displayedText.length > 0) {
-          timeout = setTimeout(() => {
-            setDisplayedText(displayedText.slice(0, -1));
-          }, 50);
-        } else {
-          setCurrentExampleIndex((prev) => (prev + 1) % examples.length);
-          setPhase('typing');
-        }
-        break;
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (goal.trim()) {
+      setShowForm(true);
     }
+  };
 
-    return () => clearTimeout(timeout);
-  }, [displayedText, currentExample, phase, currentExampleIndex, value]);
+  const handleFormComplete = (data: { frequency: string; days: string[] }) => {
+    console.log("Goal plan created:", { goal, ...data });
+    setIsSubmitted(true);
+    // Here you would typically send this data to your backend or handle it as needed
+  };
+
+  if (isSubmitted) {
+    return (
+      <div className="w-full max-w-2xl mx-auto mt-8 animate-fade-in">
+        <div className="bg-white rounded-2xl shadow-lg p-8 border border-border text-center">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">🎉 Your plan is ready!</h2>
+          <p className="text-lg text-gray-600">
+            We've created a personalized plan to help you achieve your goal. 
+            Time to get started!
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (showForm) {
+    return <GoalCustomizationForm goal={goal} onComplete={handleFormComplete} />;
+  }
 
   return (
-    <form 
-      className="mx-auto w-full max-w-xl md:max-w-2xl flex flex-col items-center animate-fade-in" 
-      onSubmit={e => {
-        e.preventDefault();
-        // Trigger your main action here
-      }} 
-      aria-label="Ask MYA"
-    >
-      <div className="flex w-full items-center bg-[#f8f6f3] shadow-lg rounded-2xl px-6 py-4 relative gap-3 border border-input">
-        <input 
-          className="flex-1 bg-transparent focus:outline-none text-lg md:text-xl font-normal text-gray-700 placeholder-gray-500" 
-          placeholder={value ? "Ask MYA to create a plan about..." : displayedText}
-          value={value} 
-          onChange={e => setValue(e.target.value)} 
-          aria-label="Main prompt" 
-          autoFocus 
+    <div className="w-full max-w-2xl mx-auto">
+      <form onSubmit={handleSubmit} className="flex gap-3 mb-4">
+        <Input
+          type="text"
+          placeholder="I want to run a marathon, start a business, learn piano..."
+          value={goal}
+          onChange={(e) => setGoal(e.target.value)}
+          className="flex-1 h-14 text-lg px-6 rounded-2xl border-2 border-gray-200 focus:border-primary focus:ring-0"
         />
-        
-        <button 
+        <Button 
           type="submit" 
-          className="absolute right-2 top-1/2 -translate-y-1/2 bg-primary hover:bg-primary/90 text-white w-9 h-9 flex items-center justify-center rounded-full transition duration-150 shadow-md focus:outline-none" 
-          aria-label="Submit"
+          disabled={!goal.trim()}
+          className="h-14 px-6 rounded-2xl text-lg font-semibold hover-scale"
         >
-          <ArrowUp size={20} />
-        </button>
-      </div>
-    </form>
+          <ArrowRight size={24} />
+        </Button>
+      </form>
+      <p className="text-center text-gray-500 text-sm">
+        Tell us your goal and we'll create an actionable plan for you
+      </p>
+    </div>
   );
 }
