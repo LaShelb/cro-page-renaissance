@@ -6,7 +6,7 @@ import { TypingAnimation } from "@/components/TypingAnimation";
 
 const NAV_LINKS = [{
   label: "How it Works",
-  href: "#"
+  href: "/how-it-works"
 }, {
   label: "Pricing",
   href: "#"

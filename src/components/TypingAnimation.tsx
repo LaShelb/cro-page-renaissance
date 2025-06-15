@@ -1,4 +1,6 @@
+
 import React, { useState, useEffect } from "react";
+
 const examples = [{
   goal: "I want to run a marathon",
   actions: ["Pick a race date", "Buy running shoes", "Follow a 16-week plan", "Do your first training run"]
@@ -9,15 +11,19 @@ const examples = [{
   goal: "I want to learn piano",
   actions: ["Find a piano or keyboard", "Download a learning app", "Practice 15 minutes daily", "Learn your first song"]
 }];
+
 export function TypingAnimation() {
   const [currentExampleIndex, setCurrentExampleIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [showActions, setShowActions] = useState(false);
   const [phase, setPhase] = useState<'typing' | 'showing-actions' | 'waiting' | 'deleting'>('typing');
+
   const currentExample = examples[currentExampleIndex];
   const fullText = currentExample.goal;
+
   useEffect(() => {
     let timeout: NodeJS.Timeout;
+
     switch (phase) {
       case 'typing':
         if (displayedText.length < fullText.length) {
@@ -28,13 +34,16 @@ export function TypingAnimation() {
           timeout = setTimeout(() => setPhase('showing-actions'), 300);
         }
         break;
+
       case 'showing-actions':
         setShowActions(true);
         timeout = setTimeout(() => setPhase('waiting'), 300);
         break;
+
       case 'waiting':
         timeout = setTimeout(() => setPhase('deleting'), 2000);
         break;
+
       case 'deleting':
         setShowActions(false);
         if (displayedText.length > 0) {
@@ -47,7 +56,33 @@ export function TypingAnimation() {
         }
         break;
     }
+
     return () => clearTimeout(timeout);
   }, [displayedText, fullText, phase, currentExampleIndex]);
-  return;
+
+  return (
+    <div className="mt-8 max-w-2xl mx-auto">
+      <div className="bg-white rounded-2xl shadow-lg p-6 border border-border animate-fade-in">
+        <div className="text-lg font-semibold text-gray-700 mb-4">
+          {displayedText}
+          <span className="animate-pulse">|</span>
+        </div>
+        
+        {showActions && (
+          <div className="space-y-2 animate-fade-in">
+            {currentExample.actions.map((action, index) => (
+              <div 
+                key={index}
+                className="flex items-center gap-3 text-gray-600"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="w-2 h-2 bg-primary rounded-full"></div>
+                <span>{action}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
