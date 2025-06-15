@@ -9,7 +9,7 @@ const NAV_LINKS = [{
   href: "/how-it-works"
 }, {
   label: "Pricing",
-  href: "#"
+  href: "/pricing"
 }, {
   label: "About",
   href: "#"
@@ -17,6 +17,7 @@ const NAV_LINKS = [{
   label: "Login",
   href: "#"
 }];
+
 const Index = () => {
   return <div className="min-h-screen w-full flex flex-col font-sans bg-[radial-gradient(circle_at_50%_0%,#f9fafb_0%,#bdd6fa_55%,#ffcac5_80%,#ff884d_100%)] transition-bg duration-300">
       {/* Header/Nav */}
