@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -82,34 +83,4 @@ body {
     padding: 0;
     font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
   }
-}
-
-/* 
- * MYA Landing custom tweaks
- * (Whitespace, smooth transitions, mobile-friendly tweaks)
- */
-body {
-  font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
-  background: none !important;
-}
-
-@media (max-width: 540px) {
-  h1 {
-    font-size: 1.45rem !important;
-    line-height: 1.3 !important;
-    letter-spacing: -.01em !important;
-  }
-}
-
-input[type="text"]::placeholder {
-  opacity: 0.75;
-  color: #b1a8a8;
-}
-
-.animate-fade-in {
-  animation: fade-in 0.33s cubic-bezier(0.53,1.7,0.36,0.83) 1 both;
-}
-@keyframes fade-in {
-  from { opacity: 0; transform: translateY(12px);}
-  to { opacity: 1; transform: translateY(0);}
 }
