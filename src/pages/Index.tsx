@@ -12,10 +12,10 @@ const NAV_LINKS = [{
   href: "/pricing"
 }, {
   label: "About",
-  href: "#"
+  href: "/about"
 }, {
   label: "Login",
-  href: "#"
+  href: "/login"
 }];
 
 const Index = () => {
