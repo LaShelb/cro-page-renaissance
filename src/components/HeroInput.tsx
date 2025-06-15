@@ -1,14 +1,60 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { GoalCustomizationForm } from "./GoalCustomizationForm";
 
+const examples = [
+  "I want to run a marathon",
+  "I want to start a business", 
+  "I want to learn piano",
+  "I want to lose 20 pounds",
+  "I want to learn Spanish"
+];
+
 export function HeroInput() {
   const [goal, setGoal] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [currentExampleIndex, setCurrentExampleIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState("");
+  const [phase, setPhase] = useState<'typing' | 'waiting' | 'deleting'>('typing');
+
+  const currentExample = examples[currentExampleIndex];
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
+    switch (phase) {
+      case 'typing':
+        if (displayedText.length < currentExample.length) {
+          timeout = setTimeout(() => {
+            setDisplayedText(currentExample.slice(0, displayedText.length + 1));
+          }, 100);
+        } else {
+          timeout = setTimeout(() => setPhase('waiting'), 2000);
+        }
+        break;
+
+      case 'waiting':
+        timeout = setTimeout(() => setPhase('deleting'), 1500);
+        break;
+
+      case 'deleting':
+        if (displayedText.length > 0) {
+          timeout = setTimeout(() => {
+            setDisplayedText(displayedText.slice(0, -1));
+          }, 50);
+        } else {
+          setCurrentExampleIndex(prev => (prev + 1) % examples.length);
+          setPhase('typing');
+        }
+        break;
+    }
+
+    return () => clearTimeout(timeout);
+  }, [displayedText, currentExample, phase, currentExampleIndex]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,10 +92,10 @@ export function HeroInput() {
       <form onSubmit={handleSubmit} className="relative mb-4">
         <Input
           type="text"
-          placeholder="I want to run a marathon, start a business, learn piano..."
+          placeholder={displayedText + "|"}
           value={goal}
           onChange={(e) => setGoal(e.target.value)}
-          className="w-full h-16 text-lg px-6 pr-20 rounded-full border-2 border-gray-300 bg-white shadow-lg focus:border-primary focus:ring-0 focus:shadow-xl transition-all duration-300"
+          className="w-full h-16 text-lg px-6 pr-20 rounded-full border-2 border-gray-300 bg-white shadow-lg focus:border-primary focus:ring-0 focus:shadow-xl focus:outline-none transition-all duration-300"
         />
         <Button 
           type="submit" 

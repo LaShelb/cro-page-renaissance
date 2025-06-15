@@ -1,8 +1,8 @@
+
 import React from "react";
 import { MYALogo } from "@/components/MYALogo";
 import { HeroInput } from "@/components/HeroInput";
 import { WorkspaceCard } from "@/components/WorkspaceCard";
-import { TypingAnimation } from "@/components/TypingAnimation";
 
 const NAV_LINKS = [{
   label: "How it Works",
@@ -52,9 +52,6 @@ const Index = () => {
             Turn your ideas and goals into clear, actionable plans.<br />
           </div>
           <HeroInput />
-          
-          {/* Typing Animation */}
-          <TypingAnimation />
         </section>
         
         {/* Workspace card at the bottom */}
