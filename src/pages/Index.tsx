@@ -1,14 +1,14 @@
 
 import React from "react";
-import { LovableLogo } from "@/components/LovableLogo";
+import { MYALogo } from "@/components/MYALogo";
 import { HeroInput } from "@/components/HeroInput";
 import { WorkspaceCard } from "@/components/WorkspaceCard";
 
 const NAV_LINKS = [
-  { label: "Community", href: "#" },
-  { label: "Teams", href: "#" },
-  { label: "Learn", href: "#" },
-  { label: "Shipped", href: "#" },
+  { label: "How it Works", href: "#" },
+  { label: "Pricing", href: "#" },
+  { label: "About", href: "#" },
+  { label: "Login", href: "#" },
 ];
 
 const Index = () => {
@@ -17,7 +17,7 @@ const Index = () => {
       {/* Header/Nav */}
       <header className="w-full flex items-center justify-between px-8 lg:px-16 py-6 z-20 relative">
         <div className="flex items-center gap-8">
-          <LovableLogo size={32} />
+          <MYALogo size={32} />
           <nav className="hidden md:flex gap-7 ml-14">
             {NAV_LINKS.map((link) => (
               <a
@@ -31,8 +31,8 @@ const Index = () => {
           </nav>
         </div>
         <div className="flex items-center gap-4">
-          <div className="rounded-full px-4 py-2 bg-purple-100 text-purple-900 font-semibold text-base tracking-tight shadow-sm border border-purple-200 select-none">
-            RAMOS's Lovable
+          <div className="rounded-full px-4 py-2 bg-blue-100 text-blue-900 font-semibold text-base tracking-tight shadow-sm border border-blue-200 select-none">
+            Your goals, in action — with MYA
           </div>
         </div>
       </header>
@@ -41,27 +41,18 @@ const Index = () => {
       <main className="flex flex-col flex-1 items-center justify-center pt-6 md:pt-12 pb-6 relative">
         <section className="w-full flex flex-col items-center py-14">
           <h1 className="text-[2.2rem] md:text-5xl font-extrabold text-gray-900 text-center tracking-tight flex gap-4 items-center mb-3">
-            Build something
-            {/* Inline small heart */}
             <span>
-              <svg width="36" height="36" viewBox="0 0 32 32" fill="none" className="inline align-middle -mt-1">
-                <defs>
-                  <radialGradient id="lovable-headline-heart" cx="50%" cy="50%" r="90%" fx="60%" fy="30%">
-                    <stop offset="0%" stopColor="#ff769b" />
-                    <stop offset="50%" stopColor="#fa7858" />
-                    <stop offset="100%" stopColor="#ffae46" />
-                  </radialGradient>
-                </defs>
-                <path
-                  d="M16 28s-7.447-5.414-11.32-9.573C2.004 16.008 2 13.016 4.167 10.842c2.16-2.166 5.67-2.167 7.83 0l1.67 1.67 1.67-1.67a5.47 5.47 0 017.83 0c2.16 2.174 2.163 5.166.486 7.585C23.447 22.586 16 28 16 28z"
-                  fill="url(#lovable-headline-heart)"
-                />
-              </svg>
+              <span className="inline-block bg-gradient-to-r from-blue-500 via-purple-500 to-orange-400 bg-clip-text text-transparent">
+                MYA
+              </span>
             </span>
-            Lovable
+            helps you achieve more — starting now.
           </h1>
-          <div className="text-lg md:text-2xl text-gray-700 font-normal text-center mb-10">
-            Create apps and websites by chatting with AI
+          <div className="max-w-xl text-lg md:text-2xl text-gray-700 font-normal text-center mb-10">
+            Turn your ideas and goals into clear, actionable plans.<br />
+            <span className="text-gray-500 font-medium italic">
+              People don’t lack motivation, just a path to action.
+            </span>
           </div>
           <HeroInput />
         </section>
