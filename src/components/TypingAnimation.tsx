@@ -35,8 +35,7 @@ export function TypingAnimation() {
   const [currentExampleIndex, setCurrentExampleIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [showActions, setShowActions] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [phase, setPhase] = useState<'typing' | 'displaying' | 'showing-actions' | 'waiting' | 'deleting'>('typing');
+  const [phase, setPhase] = useState<'typing' | 'showing-actions' | 'waiting' | 'deleting'>('typing');
 
   const currentExample = examples[currentExampleIndex];
   const fullText = currentExample.goal;
@@ -51,7 +50,6 @@ export function TypingAnimation() {
             setDisplayedText(fullText.slice(0, displayedText.length + 1));
           }, 50);
         } else {
-          setPhase('displaying');
           timeout = setTimeout(() => setPhase('showing-actions'), 300);
         }
         break;
@@ -67,13 +65,11 @@ export function TypingAnimation() {
 
       case 'deleting':
         setShowActions(false);
-        setIsDeleting(true);
         if (displayedText.length > 0) {
           timeout = setTimeout(() => {
             setDisplayedText(displayedText.slice(0, -1));
           }, 30);
         } else {
-          setIsDeleting(false);
           setCurrentExampleIndex((prev) => (prev + 1) % examples.length);
           setPhase('typing');
         }
