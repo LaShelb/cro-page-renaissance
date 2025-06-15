@@ -2,6 +2,8 @@ import React from "react";
 import { MYALogo } from "@/components/MYALogo";
 import { HeroInput } from "@/components/HeroInput";
 import { WorkspaceCard } from "@/components/WorkspaceCard";
+import { TypingAnimation } from "@/components/TypingAnimation";
+
 const NAV_LINKS = [{
   label: "How it Works",
   href: "#"
@@ -36,7 +38,7 @@ const Index = () => {
 
       {/* Main content/hero */}
       <main className="flex flex-col flex-1 items-center justify-center pt-6 md:pt-12 pb-6 relative">
-        <section className="w-full flex flex-col items-center py-14">
+        <section className="w-full flex flex-col items-center py-14 px-4">
           <h1 className="text-[2.2rem] md:text-5xl font-extrabold text-gray-900 text-center tracking-tight flex gap-4 items-center mb-3">
             <span>
               <span className="inline-block bg-gradient-to-r from-blue-500 via-purple-500 to-orange-400 bg-clip-text text-transparent">
@@ -47,10 +49,13 @@ const Index = () => {
           </h1>
           <div className="max-w-xl text-lg md:text-2xl text-gray-700 font-normal text-center mb-10">
             Turn your ideas and goals into clear, actionable plans.<br />
-            
           </div>
           <HeroInput />
+          
+          {/* Typing Animation */}
+          <TypingAnimation />
         </section>
+        
         {/* Workspace card at the bottom */}
         <WorkspaceCard />
       </main>
