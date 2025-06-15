@@ -43,20 +43,21 @@ export function HeroInput() {
 
   return (
     <div className="w-full max-w-2xl mx-auto">
-      <form onSubmit={handleSubmit} className="flex gap-3 mb-4">
+      <form onSubmit={handleSubmit} className="relative mb-4">
         <Input
           type="text"
           placeholder="I want to run a marathon, start a business, learn piano..."
           value={goal}
           onChange={(e) => setGoal(e.target.value)}
-          className="flex-1 h-14 text-lg px-6 rounded-2xl border-2 border-gray-200 focus:border-primary focus:ring-0"
+          className="w-full h-14 text-lg px-6 pr-16 rounded-2xl border-2 border-gray-200 focus:border-primary focus:ring-0"
         />
         <Button 
           type="submit" 
           disabled={!goal.trim()}
-          className="h-14 px-6 rounded-2xl text-lg font-semibold hover-scale"
+          className="absolute right-2 top-2 h-10 w-10 p-0 rounded-xl"
+          size="icon"
         >
-          <ArrowRight size={24} />
+          <ArrowRight size={18} />
         </Button>
       </form>
       <p className="text-center text-gray-500 text-sm">
