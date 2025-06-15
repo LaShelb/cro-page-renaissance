@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { GoalCustomizationForm } from "./GoalCustomizationForm";
+import { useNavigate } from "react-router-dom";
 
 const examples = [
   "I want to run a marathon",
@@ -14,6 +15,7 @@ const examples = [
 ];
 
 export function HeroInput() {
+  const navigate = useNavigate();
   const [goal, setGoal] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -65,8 +67,8 @@ export function HeroInput() {
 
   const handleFormComplete = (data: { frequency: string; days: string[] }) => {
     console.log("Goal plan created:", { goal, ...data });
-    setIsSubmitted(true);
-    // Here you would typically send this data to your backend or handle it as needed
+    // Navigate to the global timeline page
+    navigate("/global-timeline");
   };
 
   if (isSubmitted) {
