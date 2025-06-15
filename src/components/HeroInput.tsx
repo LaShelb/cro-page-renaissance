@@ -49,15 +49,15 @@ export function HeroInput() {
           placeholder="I want to run a marathon, start a business, learn piano..."
           value={goal}
           onChange={(e) => setGoal(e.target.value)}
-          className="w-full h-14 text-lg px-6 pr-16 rounded-2xl border-2 border-gray-200 focus:border-primary focus:ring-0"
+          className="w-full h-16 text-lg px-6 pr-20 rounded-full border-2 border-gray-300 bg-white shadow-lg focus:border-primary focus:ring-0 focus:shadow-xl transition-all duration-300"
         />
         <Button 
           type="submit" 
           disabled={!goal.trim()}
-          className="absolute right-2 top-2 h-10 w-10 p-0 rounded-xl"
+          className="absolute right-2 top-2 h-12 w-12 p-0 rounded-full bg-gray-600 hover:bg-gray-700 transition-colors"
           size="icon"
         >
-          <ArrowRight size={18} />
+          <ArrowRight size={20} className="text-white" />
         </Button>
       </form>
       <p className="text-center text-gray-500 text-sm">
